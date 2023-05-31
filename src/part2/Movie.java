@@ -14,14 +14,14 @@ import java.util.logging.Logger;
  */
 public class Movie 
 {
-    private final DBManager dbmanager;
+    private final DBManager dbManager;
     private final Connection conn;
     private Statement statement;
     
     public Movie()
     {
-        this.dbmanager = new DBManager();
-        this.conn = this.dbmanager.getConnection();
+        this.dbManager = new DBManager();
+        this.conn = this.dbManager.getConnection();
     }
     
     public void connectDataBase()
@@ -78,8 +78,25 @@ public class Movie
         
     }
     
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public void closeConnection() 
+    {
+        this.dbManager.closeConnections();
+    }
+    
+    public static void main(String[] args) 
+    {
+        Movie movie = new Movie();
+        movie.connectDataBase();
+        
+        try 
+        {
+            System.out.println(movie.statement.execute("Select * FROM Movie; "));
+        } 
+        catch (SQLException ex) {
+            Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        movie.closeConnection();
     }
     
 }
