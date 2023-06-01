@@ -22,6 +22,8 @@ public class Membership
     {
         this.dbManager = new DBManager();
         this.conn = this.dbManager.getConnection();
+        
+        this.connectDataBase();
     }
     
     public void connectDataBase()
@@ -36,22 +38,7 @@ public class Membership
             this.statement.addBatch("INSERT INTO Membership VALUES (1, 'Non Member', 1.0), \n"
                     + "(2, 'Rewards Member', 0.9), \n"
                     + "(3, 'Rewards VIP', 0.85)");
-            this.statement.executeBatch();
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(Membership.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void setPrimaryKey()
-    {
-        try 
-        {
-            this.statement = conn.createStatement();
-
             this.statement.addBatch("ALTER TABLE Membership ADD PRIMARY KEY (MembershipID)");
-            
             this.statement.executeBatch();
         } 
         catch (SQLException ex) 
@@ -99,9 +86,5 @@ public class Membership
     public static void main(String[] args) 
     {
         Membership membership = new Membership();
-        
-        membership.connectDataBase();
-        membership.setPrimaryKey();
-        membership.closeConnection();
     }
 }

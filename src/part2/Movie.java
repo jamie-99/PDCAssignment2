@@ -22,6 +22,8 @@ public class Movie
     {
         this.dbManager = new DBManager();
         this.conn = this.dbManager.getConnection();
+        
+        this.connectDataBase();
     }
     
     public void connectDataBase()
@@ -38,22 +40,7 @@ public class Movie
                     + "(3, 'Avengers', 'IMAX', 190), \n"
                     + "(4, 'Super Mario', '4D', 95), \n"
                     + "(5, 'John Wick', 'IMAX', 160)");
-            this.statement.executeBatch();
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void setPrimaryKey()
-    {
-        try 
-        {
-            this.statement = conn.createStatement();
-
             this.statement.addBatch("ALTER TABLE Movie ADD PRIMARY KEY (MovieID)");
-            
             this.statement.executeBatch();
         } 
         catch (SQLException ex) 
@@ -101,10 +88,6 @@ public class Movie
     public static void main(String[] args) 
     {
         Movie movie = new Movie();
-        
-        movie.connectDataBase();
-        movie.setPrimaryKey();
-        movie.closeConnection();
     }
     
 }
