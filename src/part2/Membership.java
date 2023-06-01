@@ -12,13 +12,13 @@ import java.util.logging.Logger;
  *
  * @author jamie
  */
-public class Movie 
+public class Membership 
 {
     private final DBManager dbManager;
     private final Connection conn;
     private Statement statement;
     
-    public Movie()
+    public Membership()
     {
         this.dbManager = new DBManager();
         this.conn = this.dbManager.getConnection();
@@ -29,20 +29,18 @@ public class Movie
         try 
         {
             this.statement = this.conn.createStatement();
-
-            this.checkTableExists("Movie");
             
-            this.statement.addBatch("CREATE TABLE Movie (MovieID int NOT NULL, Title varchar(50), MovieType varchar(10), Duration int)");
-            this.statement.addBatch("INSERT INTO Movie VALUES (1, 'Star Wars', '3D', 130), \n"
-                    + "(2, 'Minions', 'Normal', 89), \n"
-                    + "(3, 'Avengers', 'IMAX', 190), \n"
-                    + "(4, 'Super Mario', '4D', 95), \n"
-                    + "(5, 'John Wick', 'IMAX', 160)");
+            this.checkTableExists("Membership");
+            
+            this.statement.addBatch("CREATE TABLE Membership (MembershipID int NOT NULL, Membership varchar(50), DiscountRate float)");
+            this.statement.addBatch("INSERT INTO Membership VALUES (1, 'Non Member', 1.0), \n"
+                    + "(2, 'Rewards Member', 0.9), \n"
+                    + "(3, 'Rewards VIP', 0.85)");
             this.statement.executeBatch();
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Membership.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -52,13 +50,13 @@ public class Movie
         {
             this.statement = conn.createStatement();
 
-            this.statement.addBatch("ALTER TABLE Movie ADD PRIMARY KEY (MovieID)");
+            this.statement.addBatch("ALTER TABLE Membership ADD PRIMARY KEY (MembershipID)");
             
             this.statement.executeBatch();
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Membership.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -89,7 +87,7 @@ public class Movie
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Membership.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -100,11 +98,10 @@ public class Movie
     
     public static void main(String[] args) 
     {
-        Movie movie = new Movie();
+        Membership membership = new Membership();
         
-        movie.connectDataBase();
-        movie.setPrimaryKey();
-        movie.closeConnection();
+        membership.connectDataBase();
+        membership.setPrimaryKey();
+        membership.closeConnection();
     }
-    
 }
