@@ -30,7 +30,7 @@ public class DBManager
             try 
             {
                 this.conn = DriverManager.getConnection(URL, userName, password);
-                System.out.println(URL + " Get Connected Successfully ....");
+                System.out.println(URL + " connection successful");
             } 
             catch (SQLException ex) 
             {
