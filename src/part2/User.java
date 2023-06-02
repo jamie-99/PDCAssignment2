@@ -32,12 +32,12 @@ public class User
         {
             this.statement = this.conn.createStatement();
             
-            this.checkTableExists("User");
+            this.checkTableExists("Users");
             
-            this.statement.addBatch("CREATE TABLE User (UserID int NOT NULL, UserName varchar(50), Password varchar(20), "
-                    + "FisrtName varchar(50), LastName varchar(50))");
-            this.statement.addBatch("INSERT INTO User VALUES (1, 'jamie', 'password', 'Jamie', 'Lee')");
-            this.statement.addBatch("ALTER TABLE User ADD PRIMARY KEY (UserID)");
+            this.statement.addBatch("CREATE TABLE Users (UserID int NOT NULL, UserName varchar(50), Password varchar(20), "
+                    + "FirstName varchar(50), LastName varchar(50))");
+            this.statement.addBatch("INSERT INTO Users VALUES (1, 'jamie', 'password', 'Jamie', 'Lee')");
+            this.statement.addBatch("ALTER TABLE Users ADD PRIMARY KEY (UserID)");
             this.statement.executeBatch();
         } 
         catch (SQLException ex) 
