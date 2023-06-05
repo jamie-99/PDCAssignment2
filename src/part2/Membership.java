@@ -14,6 +14,23 @@ import java.util.logging.Logger;
  */
 public class Membership 
 {
+    enum MembershipType
+    {
+        NON_MEMBER("Non-Member"), REWARDS_MEMBER("Rewards Member"), REWARDS_VIP("Rewards VIP");
+    
+        private String membership;
+        
+        MembershipType(String membership)
+        {
+            this.membership = membership;
+        }
+        
+        public String getMembership()
+        {
+            return this.membership;
+        }
+    }
+    
     private final DBManager dbManager;
     private final Connection conn;
     private Statement statement;
@@ -40,7 +57,7 @@ public class Membership
                     + "(3, 'Rewards VIP', 0.85)");
             this.statement.addBatch("ALTER TABLE Membership ADD PRIMARY KEY (MembershipID)");
             this.statement.executeBatch();
-        } 
+        }
         catch (SQLException ex) 
         {
             Logger.getLogger(Membership.class.getName()).log(Level.SEVERE, null, ex);
