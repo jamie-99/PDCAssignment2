@@ -18,6 +18,8 @@ public class User
     private final Connection conn;
     private Statement statement;
     
+    private String userName;
+    private String password;
     private String name;
     private Membership membership;
     private int pointBalance;    
