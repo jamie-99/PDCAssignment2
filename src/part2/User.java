@@ -18,12 +18,46 @@ public class User
     private final Connection conn;
     private Statement statement;
     
-    public User()
+    private String name;
+    private Membership membership;
+    private int pointBalance;    
+    
+    public User(String name, Membership membership)
     {
+        this.name = name;
+        this.membership = membership;
+        this.pointBalance = 0;
+        
         this.dbManager = new DBManager();
         this.conn = this.dbManager.getConnection();
         
         this.connectDataBase();
+    }
+    
+    public void updatePointBalance(int inputPoints)
+    {
+        this.pointBalance += inputPoints;
+    }
+    
+//    @Override
+//    public String toString()
+//    {
+//        return this.name + "(" + this.membership.getMembership() + ")";
+//    }
+
+    public String getName() 
+    {
+        return name;
+    }
+
+    public Membership getMembership() 
+    {
+        return membership;
+    }
+        
+    public int getPointBalance() 
+    {
+        return pointBalance;
     }
     
     public void connectDataBase()
@@ -84,6 +118,6 @@ public class User
     
     public static void main(String[] args) 
     {
-        User user = new User();
+        //User user = new User();
     }
 }
