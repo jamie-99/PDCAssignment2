@@ -89,7 +89,7 @@ public class User extends Observable
         }
     }
     
-    public Data checkName(String userName, String password)
+    public Data checkCredential(String userName, String password)
     {
         Data data = new Data();
         
@@ -99,17 +99,17 @@ public class User extends Observable
         {
             ResultSet rs = this.statement.executeQuery(query);
             
-            while (rs.next())
+            if (rs.next())
             {
                 String pass = rs.getString("password");
                 
                 if (password.compareTo(pass) == 0)
                 {
                     data.setSignInFlag(true);
+                    System.out.println("Sign in successful");
                 }
             }
-            
-            if (!data.getSignInFlag())
+            else
             {
                 System.out.println("The user does not exist.");
             }
@@ -118,6 +118,35 @@ public class User extends Observable
         {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        return data;
+    }
+    
+    public Data checkUsernameExists(String username)
+    {
+        Data data = new Data();
+        
+        String query = "SELECT username FROM users";
+        
+        try 
+        {
+            ResultSet rs = this.statement.executeQuery(query);
+            
+            while (rs.next())
+            {
+                String un = rs.getString("username");
+                
+                if (un.compareTo(username) == 0)
+                {
+                    data.setSignUpFlag(false);
+                }
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         
         return data;
     }

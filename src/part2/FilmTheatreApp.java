@@ -63,6 +63,7 @@ public class FilmTheatreApp extends JFrame implements ActionListener
         this.setTitle("Fiml Theatre App");
         this.setVisible(true);
         this.setSize(370, 600);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
     }
@@ -81,6 +82,9 @@ public class FilmTheatreApp extends JFrame implements ActionListener
             this.setVisible(false);
             
             SignIn signInWindow = new SignIn();
+            User user = new User();
+            SignInController sic = new SignInController(user, signInWindow);
+            user.addObserver(signInWindow);
         }
         
         if (e.getSource() == signUp)

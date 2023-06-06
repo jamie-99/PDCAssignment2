@@ -1,7 +1,6 @@
 package part2;
 
 import java.awt.Container;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
@@ -24,6 +23,7 @@ public class SignIn extends JFrame implements Observer
     JButton signInButton;
     JButton resetButton;
     JButton homeButton;
+    JLabel message;
     
     public SignIn()
     {
@@ -34,6 +34,7 @@ public class SignIn extends JFrame implements Observer
         this.signInButton = new JButton("Sign in");
         this.resetButton = new JButton("Reset");
         this.homeButton = new JButton("Home");
+        this.message = new JLabel();
         
         this.setLayoutManager();
         this.setLocationAndSize();
@@ -54,6 +55,7 @@ public class SignIn extends JFrame implements Observer
         this.passwordTextField.setBounds(150, 220, 150, 30);
         this.signInButton.setBounds(50, 300, 100, 30);
         this.resetButton.setBounds(200, 300, 100, 30);
+        this.homeButton.setBounds(30, 30, 100, 30);
     }
     
     public void addCompomentsToContainer()
@@ -64,27 +66,14 @@ public class SignIn extends JFrame implements Observer
         this.container.add(this.passwordTextField);
         this.container.add(this.signInButton);
         this.container.add(this.resetButton);
+        this.container.add(this.homeButton);
     }
     
     public void addActionListenr(ActionListener listener)
     {
         this.signInButton.addActionListener(listener);
         this.resetButton.addActionListener(listener);
-    }
-    
-    public void actionPerformed(ActionEvent e) 
-    {
-        if (e.getSource() == this.signInButton)
-        {
-            String inputUsername = this.userNameTextField.getText();
-            String inputPassword = this.passwordTextField.getText();
-        }
-        
-        if (e.getSource() == this.resetButton)
-        {
-            this.userNameTextField.setText("");
-            this.passwordTextField.setText("");
-        }
+        this.homeButton.addActionListener(listener);
     } 
     
     public void frame()
@@ -92,12 +81,30 @@ public class SignIn extends JFrame implements Observer
         this.setTitle("Sign in");
         this.setVisible(true);
         this.setSize(370, 600);
+        this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void update(Observable o, Object arg) 
+    {
+        Data data = (Data) arg;
+        
+        if(!data.getSignInFlag())
+        {
+            this.userNameTextField.setText("");
+            this.passwordTextField.setText("");
+            this.message.setText("Wrong username or password");
+        }
+        else if (data.getHomeFlag())
+        {
+            
+        }
+    }
+    
+    public static void main(String[] args) 
+    {
+        SignIn signIn = new SignIn();
     }
 }

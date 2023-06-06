@@ -13,7 +13,7 @@ public class Data
     public Data()
     {
         this.signInFlag = false;
-        this.signUpFlag = false;
+        this.signUpFlag = true;
         this.homeFlag = false;
     }
 
