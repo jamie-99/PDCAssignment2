@@ -92,6 +92,9 @@ public class FilmTheatreApp extends JFrame implements ActionListener
             this.setVisible(false);
             
             SignUp signUpWindow = new SignUp();
+            User user = new User();
+            SignUpController suc = new SignUpController(user, signUpWindow);
+            user.addObserver(signUpWindow);
         }
     }
 }

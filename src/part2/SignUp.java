@@ -77,14 +77,14 @@ public class SignUp extends JFrame implements Observer
         this.password.setBounds(50, 300, 100, 30);
         this.membership.setBounds(50, 350, 100, 30);
         
-        this.firstNameInput.setBounds(150, 150, 150, 30);
-        this.lastNameInput.setBounds(150, 200, 150, 30);
-        this.usernameInput.setBounds(150, 250, 150, 30);
-        this.passwordInput.setBounds(150, 300, 150, 30);
-        this.membershipComboBox.setBounds(150, 350, 150, 30);
+        this.getFirstNameInput().setBounds(150, 150, 150, 30);
+        this.getLastNameInput().setBounds(150, 200, 150, 30);
+        this.getUsernameInput().setBounds(150, 250, 150, 30);
+        this.getPasswordInput().setBounds(150, 300, 150, 30);
+        this.getMembershipComboBox().setBounds(150, 350, 150, 30);
         
-        this.signUpButton.setBounds(250, 420, 100, 30);
-        this.homeButton.setBounds(30, 30, 100, 30);
+        this.getSignUpButton().setBounds(250, 420, 100, 30);
+        this.getHomeButton().setBounds(30, 30, 100, 30);
     }
     
     public void addComponents()
@@ -95,21 +95,21 @@ public class SignUp extends JFrame implements Observer
         this.signUpPanel.add(this.password);
         this.signUpPanel.add(this.membership);
         
-        this.signUpPanel.add(this.firstNameInput);
-        this.signUpPanel.add(this.lastNameInput);
-        this.signUpPanel.add(this.usernameInput);
-        this.signUpPanel.add(this.passwordInput);
-        this.signUpPanel.add(this.membershipComboBox);
+        this.signUpPanel.add(this.getFirstNameInput());
+        this.signUpPanel.add(this.getLastNameInput());
+        this.signUpPanel.add(this.getUsernameInput());
+        this.signUpPanel.add(this.getPasswordInput());
+        this.signUpPanel.add(this.getMembershipComboBox());
         
-        this.signUpPanel.add(this.signUpButton);
-        this.signUpPanel.add(this.homeButton);
+        this.signUpPanel.add(this.getSignUpButton());
+        this.signUpPanel.add(this.getHomeButton());
     }
     
     public void addActionListener(ActionListener listener)
     {
-        this.membershipComboBox.addActionListener(listener);
-        this.signUpButton.addActionListener(listener);
-        this.homeButton.addActionListener(listener);
+        this.getMembershipComboBox().addActionListener(listener);
+        this.getSignUpButton().addActionListener(listener);
+        this.getHomeButton().addActionListener(listener);
     }
 
     @Override
@@ -119,8 +119,8 @@ public class SignUp extends JFrame implements Observer
         
         if (!data.getSignUpFlag())
         {
-            this.usernameInput.setText("");
-            this.passwordInput.setText("");
+            this.getUsernameInput().setText("");
+            this.getPasswordInput().setText("");
             
             this.message.setText("The username already exists.");
         }
@@ -128,5 +128,45 @@ public class SignUp extends JFrame implements Observer
         {
             
         }
+    }
+
+    public JTextField getFirstNameInput() 
+    {
+        return firstNameInput;
+    }
+
+    public JTextField getLastNameInput() 
+    {
+        return lastNameInput;
+    }
+
+    public JTextField getUsernameInput() 
+    {
+        return usernameInput;
+    }
+
+    public JTextField getPasswordInput() 
+    {
+        return passwordInput;
+    }
+
+    public JComboBox getMembershipComboBox() 
+    {
+        return membershipComboBox;
+    }
+
+    public JButton getSignUpButton() 
+    {
+        return signUpButton;
+    }
+
+    public JButton getHomeButton() 
+    {
+        return homeButton;
+    }
+    
+    public static void main(String[] args) 
+    {
+        
     }
 }

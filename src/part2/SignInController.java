@@ -23,21 +23,21 @@ public class SignInController implements ActionListener
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        if (e.getSource() == this.signIn.signInButton)
+        if (e.getSource() == this.signIn.getSignInButton())
         {
-            String inputUsername = this.signIn.userNameTextField.getText();
-            String inputPassword = this.signIn.passwordTextField.getText();
+            String inputUsername = this.signIn.getUserNameTextField().getText();
+            String inputPassword = this.signIn.getPasswordTextField().getText();
             
             this.user.checkCredential(inputUsername, inputPassword);
         } 
         
-        if (e.getSource() == this.signIn.resetButton)
+        if (e.getSource() == this.signIn.getResetButton())
         {
-            this.signIn.userNameTextField.setText("");
-            this.signIn.passwordTextField.setText("");
+            this.signIn.getUserNameTextField().setText("");
+            this.signIn.getPasswordTextField().setText("");
         }
         
-        if(e.getSource() == this.signIn.homeButton)
+        if(e.getSource() == this.signIn.getHomeButton())
         {
             
         }
