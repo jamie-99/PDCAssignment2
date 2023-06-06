@@ -3,6 +3,8 @@ package part2;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,7 +14,7 @@ import javax.swing.JTextField;
  *
  * @author jamie
  */
-public class SignIn extends JFrame implements ActionListener
+public class SignIn extends JFrame implements Observer
 {
     Container container;
     JLabel userName;
@@ -21,6 +23,7 @@ public class SignIn extends JFrame implements ActionListener
     JTextField passwordTextField;
     JButton signInButton;
     JButton resetButton;
+    JButton homeButton;
     
     public SignIn()
     {
@@ -30,11 +33,11 @@ public class SignIn extends JFrame implements ActionListener
         this.passwordTextField = new JTextField();
         this.signInButton = new JButton("Sign in");
         this.resetButton = new JButton("Reset");
+        this.homeButton = new JButton("Home");
         
         this.setLayoutManager();
         this.setLocationAndSize();
         this.addCompomentsToContainer();
-        this.addActionEvent();
         this.frame();
     }
     
@@ -63,20 +66,18 @@ public class SignIn extends JFrame implements ActionListener
         this.container.add(this.resetButton);
     }
     
-    public void addActionEvent()
+    public void addActionListenr(ActionListener listener)
     {
-        this.signInButton.addActionListener(this);
-        this.resetButton.addActionListener(this);
+        this.signInButton.addActionListener(listener);
+        this.resetButton.addActionListener(listener);
     }
     
-    @Override
     public void actionPerformed(ActionEvent e) 
     {
         if (e.getSource() == this.signInButton)
         {
             String inputUsername = this.userNameTextField.getText();
             String inputPassword = this.passwordTextField.getText();
-            
         }
         
         if (e.getSource() == this.resetButton)
@@ -93,5 +94,10 @@ public class SignIn extends JFrame implements ActionListener
         this.setSize(370, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

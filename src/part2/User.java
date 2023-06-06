@@ -5,6 +5,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
  *
  * @author jamie
  */
-public class User 
+public class User extends Observable
 {
     private final DBManager dbManager;
     private final Connection conn;
@@ -34,6 +35,12 @@ public class User
         this.conn = this.dbManager.getConnection();
         
         this.connectDataBase();
+    }
+    
+    public User()
+    {
+        this.dbManager = new DBManager();
+        this.conn = this.dbManager.getConnection();
     }
     
     public void updatePointBalance(int inputPoints)
@@ -80,6 +87,39 @@ public class User
         {
             Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public Data checkName(String userName, String password)
+    {
+        Data data = new Data();
+        
+        String query = "SELECT username, password FROM Users WHERE username = '" + userName + "'";
+        
+        try 
+        {
+            ResultSet rs = this.statement.executeQuery(query);
+            
+            while (rs.next())
+            {
+                String pass = rs.getString("password");
+                
+                if (password.compareTo(pass) == 0)
+                {
+                    data.setSignInFlag(true);
+                }
+            }
+            
+            if (!data.getSignInFlag())
+            {
+                System.out.println("The user does not exist.");
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return data;
     }
     
     public void checkTableExists(String name) 
