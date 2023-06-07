@@ -164,9 +164,4 @@ public class SignUp extends JFrame implements Observer
     {
         return homeButton;
     }
-    
-    public static void main(String[] args) 
-    {
-        
-    }
 }

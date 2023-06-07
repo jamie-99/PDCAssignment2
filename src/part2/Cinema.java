@@ -1,10 +1,5 @@
 package part2;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
@@ -51,7 +46,6 @@ public class Cinema
         this.movies = new Movies();
 
         this.timeSlots = new LinkedList();
-        this.readCinemaScheduleFromFile();
 
         this.row = (int) Math.sqrt(this.capacity);
         this.column = (int) Math.sqrt(this.capacity);
@@ -180,60 +174,6 @@ public class Cinema
         return null;
     }
 
-    /*
-    * A method that reads the cinema schedule from a file.
-    */
-    private void readCinemaScheduleFromFile() {
-        BufferedReader br = null;
-
-        try {
-            br = new BufferedReader(new FileReader("./resources/cinema" + this.getCinemaNumber() + ".txt"));
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Cinema.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String line = "";
-        try {
-            while ((line = br.readLine()) != null) {
-                String str[] = line.split("-");
-
-                String time[] = str[0].split(":");
-                LocalTime startTime = LocalTime.of(Integer.parseInt(time[0]), Integer.parseInt(time[1]));
-
-                this.addTimeSlot(new TimeSlot(this.findMovie(str[1]), LocalDate.now().plusDays(1), startTime));
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(Cinema.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException ex) {
-                    Logger.getLogger(Cinema.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-    }
-
-    /*
-    * Method that writes the cinema schedule for a given date to a file.
-    */
-    public void writeCinemaScheduleToFile(LocalDate date) {
-        PrintWriter pw = null;
-
-        try {
-            pw = new PrintWriter("./resources/cinema" + this.getCinemaNumber() + ".txt");
-
-            for (TimeSlot ts : this.getTimeSlots(date)) {
-                pw.println(ts.toString());
-            }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Cinema.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            if (pw != null) {
-                pw.close();
-            }
-        }
-    }
 
     public int getRow() {
         return this.row;

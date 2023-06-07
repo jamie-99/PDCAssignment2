@@ -176,6 +176,8 @@ public class Movies extends JFrame implements ActionListener
         this.johnWickIcon.setBounds(20, 620, 181, 52);
         this.johnWickButton.setBounds(230, 620, 150, 30);
         this.johnWickLabel.setBounds(230, 650, 250, 30);
+        
+        this.signOut.setBounds(450, 20, 100, 30);
     }
     
     public void addCompomentsToContainer()
@@ -201,6 +203,8 @@ public class Movies extends JFrame implements ActionListener
         this.container.add(this.johnWickIcon);
         this.container.add(this.johnWickButton);
         this.container.add(this.johnWickLabel);
+        
+        this.container.add(this.signOut);
     }
     
     public void frame()
@@ -211,6 +215,48 @@ public class Movies extends JFrame implements ActionListener
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
+    }
+    
+    public void addActionEvent(ActionListener listener)
+    {
+        this.starWarsButton.addActionListener(listener);
+        this.minionsButton.addActionListener(listener);
+        this.avengersButton.addActionListener(listener);
+        this.superMarioButton.addActionListener(listener);
+        this.johnWickButton.addActionListener(listener);
+    }
+    
+    public void actionPerfomed(ActionEvent e)
+    {
+        if (e.getSource() == this.starWarsButton)
+        {
+            
+        }
+        
+        if (e.getSource() == this.minionsButton)
+        {
+            
+        }
+        
+        if (e.getSource() == this.avengersButton)
+        {
+            
+        }
+        
+        if (e.getSource() == this.superMarioButton)
+        {
+            
+        }
+        
+        if (e.getSource() == this.johnWickButton)
+        {
+            
+        }
+        
+        if (e.getSource() == this.signOut)
+        {
+            
+        }
     }
     
     public void checkTableExists(String name) 
