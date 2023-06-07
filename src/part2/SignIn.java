@@ -40,6 +40,8 @@ public class SignIn extends JFrame implements Observer
         this.setLocationAndSize();
         this.addCompomentsToContainer();
         this.frame();
+        
+        this.add(this.container);
     }
     
     public void setLayoutManager()

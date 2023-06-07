@@ -1,13 +1,5 @@
 package part2;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author jamie
@@ -29,6 +21,11 @@ public class Movie
     {
         return this.title + "(" + this.getMovieType().getMovieType() + ") - " + this.getDuration() + " minutes";
     }
+    
+    public String movieDetail()
+    {
+        return "Movie type: " + this.getMovieType().getMovieType() + ", Duration: " + this.getDuration() + " minutes";
+    }
 
     public String getTitle() 
     {
@@ -43,6 +40,17 @@ public class Movie
     public MovieType getMovieType()
     {
         return this.movieType;
+    }
+    
+    public void setMovieType(String movieType)
+    {
+        for (MovieType mt : MovieType.values())
+        {
+            if (mt.getMovieType().equalsIgnoreCase(movieType))
+            {
+                this.movieType = mt;
+            }
+        }
     }
     
     public void setMovieType(MovieType movieType)
