@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,6 +27,7 @@ public class BookSeat extends JFrame implements ActionListener
     private String time;
     private int seatsToBook;
     private int seatsBooked;
+    private HashSet<String> bookedSeats;
     
     private JLabel message = new JLabel("Please select your seats.");
     private JButton[][] seatButtons = new JButton[10][10];
@@ -120,12 +122,15 @@ public class BookSeat extends JFrame implements ActionListener
         {
             this.dispose();
             this.tap.dispose();
+            this.tap.movies.dispose();
             this.fta.setVisible(true);
         }
         
         if (e.getSource() == this.confirmButton) 
         {
+            this.setVisible(false);
             
+            PrintTicket pt = new PrintTicket(this.fta, this.dbManager, this);
         } 
         else 
         {
@@ -139,6 +144,7 @@ public class BookSeat extends JFrame implements ActionListener
                 else 
                 {
                     seatButton.setEnabled(false);
+                    this.getBookedSeats().add(seatButton.getText());
                     seatsBooked++;
                     
                     if (seatsBooked == seatsToBook) 
@@ -152,5 +158,10 @@ public class BookSeat extends JFrame implements ActionListener
                 JOptionPane.showMessageDialog(this, "Seat already booked.", "Seat Booking", JOptionPane.INFORMATION_MESSAGE);
             }
         }
+    }
+
+    public HashSet<String> getBookedSeats() 
+    {
+        return bookedSeats;
     }
 }

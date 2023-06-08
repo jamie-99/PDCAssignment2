@@ -177,35 +177,35 @@ public class Movies extends JFrame implements ActionListener
         {
             this.setVisible(false);
             
-            TimeAndPeople cinema = new TimeAndPeople(this.fta, this.dbManager, this, this.starWarsButton.getText());
+            TimeAndPeople tap = new TimeAndPeople(this.fta, this.dbManager, this, this.starWarsButton.getText());
         }
         
         if (e.getSource() == this.minionsButton)
         {
             this.setVisible(false);
             
-            TimeAndPeople cinema = new TimeAndPeople(this.fta, this.dbManager, this, this.minionsButton.getText());
+            TimeAndPeople tap = new TimeAndPeople(this.fta, this.dbManager, this, this.minionsButton.getText());
         }
         
         if (e.getSource() == this.avengersButton)
         {
             this.setVisible(false);
             
-            TimeAndPeople cinema = new TimeAndPeople(this.fta, this.dbManager, this, this.avengersButton.getText());
+            TimeAndPeople tap = new TimeAndPeople(this.fta, this.dbManager, this, this.avengersButton.getText());
         }
         
         if (e.getSource() == this.superMarioButton)
         {
             this.setVisible(false);
             
-            TimeAndPeople cinema = new TimeAndPeople(this.fta, this.dbManager, this, this.superMarioButton.getText());
+            TimeAndPeople tap = new TimeAndPeople(this.fta, this.dbManager, this, this.superMarioButton.getText());
         }
         
         if (e.getSource() == this.johnWickButton)
         {
             this.setVisible(false);
             
-            TimeAndPeople cinema = new TimeAndPeople(this.fta, this.dbManager, this, this.johnWickButton.getText());
+            TimeAndPeople tap = new TimeAndPeople(this.fta, this.dbManager, this, this.johnWickButton.getText());
         }
         
         if (e.getSource() == this.signOut)

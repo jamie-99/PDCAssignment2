@@ -63,11 +63,10 @@ public class DBManager extends Observable
         
         String query = "SELECT username, password FROM Users WHERE username = '" + userName + "'";
         
+        ResultSet rs = this.queryDB(query);
+        
         try 
-        {
-            Statement statement = this.conn.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            
+        {   
             if (rs.next())
             {
                 String pass = rs.getString("password");
@@ -97,11 +96,10 @@ public class DBManager extends Observable
         
         String query = "SELECT username FROM users";
         
+        ResultSet rs = this.queryDB(query);
+        
         try 
         {
-            Statement statement = this.conn.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            
             while (rs.next())
             {
                 String un = rs.getString("username");
@@ -126,11 +124,10 @@ public class DBManager extends Observable
         
         String query = "SELECT Title, MovieType, Duration FROM Movie";
         
+        ResultSet rs = this.queryDB(query);
+        
         try 
         {
-            Statement statement = this.conn.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            
             while (rs.next())
             {
                 String title = rs.getString("Title");
@@ -161,11 +158,10 @@ public class DBManager extends Observable
                     "LEFT JOIN Cinema3 c3 ON m.MovieID = c3.MovieID " +
                     "WHERE m.Title = '" + title + "'";
         
+        ResultSet rs = this.queryDB(query);
+        
         try 
         {
-            Statement statement = this.conn.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            
             while (rs.next())
             {
                 int index = 0;
@@ -200,6 +196,57 @@ public class DBManager extends Observable
         }
         
         return schedule;
+    }
+    
+    public double getDiscountRate(int membershipID)
+    {
+        double discountRate = 0.0;
+        
+        String query = "SELECT m.discountRate FROM Membership m JOIN User u ON m.MembershipID = u.MembershipID WHERE u.MembershipID = " + membershipID;
+        
+        ResultSet rs = this.queryDB(query);
+        
+        try 
+        {
+            if (rs.next())
+            {
+                discountRate = rs.getDouble("DiscountRate");
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return discountRate;
+    }
+    
+    public int getMembershipID(String username)
+    {
+        int membershipID = 0;
+        
+        String query = "SELECT MembershipID FROM Users WHERE username = '" + username + "'";
+        
+        ResultSet rs = this.queryDB(query);
+        
+        try 
+        {
+            if (rs.next())
+            {
+                membershipID = rs.getInt("MembershipID");
+                System.out.println("MembershipID for username '" + username + "': " + membershipID);
+            } 
+            else 
+            {
+                System.out.println("No MembershipID found for username '" + username + "'");
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return membershipID;
     }
     
     public ResultSet queryDB(String sql) 

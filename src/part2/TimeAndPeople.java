@@ -17,9 +17,9 @@ public class TimeAndPeople extends JFrame implements ActionListener
 {
     public FilmTheatreApp fta;
     public DBManager dbManager;
-
-    private Movies movies;
-    private String title;
+    public Movies movies;
+    
+    public String title;
     private String[] timeSlot;
     
     private Container container = new Container();

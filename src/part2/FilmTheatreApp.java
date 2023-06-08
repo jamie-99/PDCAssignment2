@@ -13,11 +13,12 @@ import javax.swing.JLabel;
  */
 public class FilmTheatreApp extends JFrame implements ActionListener
 {
+    public SignIn signInWindow;
+    
     private Container container;
     private JLabel message;
     private JLabel welcomeMessage;
     private JButton signIn;
-    private JButton signUp;
     
     private DBManager dbManager;
     
@@ -28,7 +29,6 @@ public class FilmTheatreApp extends JFrame implements ActionListener
         this.container = getContentPane();
         this.welcomeMessage = new JLabel("Welcome to FilmTheatre App!");
         this.signIn = new JButton("Sign in");
-        this.signUp = new JButton("Sign up");
         
         this.setLayoutManager();
         this.setLocationAndSize();
@@ -46,21 +46,18 @@ public class FilmTheatreApp extends JFrame implements ActionListener
     public void setLocationAndSize()
     {
         this.welcomeMessage.setBounds(90, 150, 200, 30);
-        this.signIn.setBounds(50, 300, 100, 30);
-        this.signUp.setBounds(200, 300, 100, 30);
+        this.signIn.setBounds(120, 300, 100, 30);
     }
     
     public void addCompomentsToContainer()
     {
         this.container.add(this.welcomeMessage);
         this.container.add(this.signIn);
-        this.container.add(this.signUp);
     }
     
     public void addActionEvent()
     {
         this.signIn.addActionListener(this);
-        this.signUp.addActionListener(this);
     }
     
     public void frame()
@@ -80,18 +77,9 @@ public class FilmTheatreApp extends JFrame implements ActionListener
         {
             this.setVisible(false);
             
-            SignIn signInWindow = new SignIn(this, this.dbManager);
+            signInWindow = new SignIn(this, this.dbManager);
             SignInController sic = new SignInController(this.dbManager, signInWindow);
             this.dbManager.addObserver(signInWindow);
-        }
-        
-        if (e.getSource() == signUp)
-        {
-            this.setVisible(false);
-            
-            SignUp signUpWindow = new SignUp(this, this.dbManager);
-            SignUpController suc = new SignUpController(dbManager, signUpWindow);
-            this.dbManager.addObserver(signUpWindow);
         }
     }
     
