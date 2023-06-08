@@ -1,10 +1,14 @@
 package part2;
 
+import javax.swing.JLabel;
+
+
 public class Movie 
 {
     private String title;
     private int duration;
     private MovieType movieType;
+    private JLabel movieLabel;
     
     public Movie(String title, int duration)
     {
@@ -52,5 +56,15 @@ public class Movie
     public void setMovieType(MovieType movieType)
     {
         this.movieType = movieType;
+    }
+    
+    public void setMovieLabel(JLabel movieLabel)
+    {
+        this.movieLabel = movieLabel;
+    }
+    
+    public JLabel getMovieLabel()
+    {
+        return this.movieLabel;
     }
 }

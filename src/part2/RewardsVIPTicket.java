@@ -1,5 +1,8 @@
 package part2;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  *
  * @author jamie
@@ -65,6 +68,9 @@ public class RewardsVIPTicket extends Ticket
     @Override
     public double getTotalPrice()
     {
-        return super.totalPrice * this.discountRate;
+        BigDecimal bd = new BigDecimal(super.totalPrice * this.discountRate).setScale(2, RoundingMode.HALF_UP);
+        super.totalPrice = bd.doubleValue();
+        
+        return super.totalPrice;
     }
 }

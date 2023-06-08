@@ -27,7 +27,7 @@ public class BookSeat extends JFrame implements ActionListener
     private String time;
     private int seatsToBook;
     private int seatsBooked;
-    private HashSet<String> bookedSeats;
+    private HashSet<String> bookedSeats = new HashSet();
     
     private JLabel message = new JLabel("Please select your seats.");
     private JButton[][] seatButtons = new JButton[10][10];
@@ -144,7 +144,7 @@ public class BookSeat extends JFrame implements ActionListener
                 else 
                 {
                     seatButton.setEnabled(false);
-                    this.getBookedSeats().add(seatButton.getText());
+                    bookedSeats.add(seatButton.getText());
                     seatsBooked++;
                     
                     if (seatsBooked == seatsToBook) 
@@ -163,5 +163,15 @@ public class BookSeat extends JFrame implements ActionListener
     public HashSet<String> getBookedSeats() 
     {
         return bookedSeats;
+    }
+    
+    public int getSeatsToBook()
+    {
+        return this.seatsToBook;
+    }
+    
+    public String getTime()
+    {
+        return this.time;
     }
 }

@@ -90,34 +90,6 @@ public class DBManager extends Observable
         return data;
     }
     
-    public Data checkUsernameExists(String username)
-    {
-        Data data = new Data();
-        
-        String query = "SELECT username FROM users";
-        
-        ResultSet rs = this.queryDB(query);
-        
-        try 
-        {
-            while (rs.next())
-            {
-                String un = rs.getString("username");
-                
-                if (un.compareTo(username) == 0)
-                {
-                    data.setSignUpFlag(false);
-                }
-            }
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return data;
-    }
-    
     public ArrayList<Movie> retrieveMoviesFromDB()
     {
         ArrayList<Movie> movies = new ArrayList<>();
@@ -202,7 +174,7 @@ public class DBManager extends Observable
     {
         double discountRate = 0.0;
         
-        String query = "SELECT m.discountRate FROM Membership m JOIN User u ON m.MembershipID = u.MembershipID WHERE u.MembershipID = " + membershipID;
+        String query = "SELECT m.discountRate FROM Membership m JOIN Users u ON m.MembershipID = u.MembershipID WHERE u.MembershipID = " + membershipID;
         
         ResultSet rs = this.queryDB(query);
         
@@ -247,6 +219,60 @@ public class DBManager extends Observable
         }
         
         return membershipID;
+    }
+    
+    public int getUserID(String username)
+    {
+        String query = "SELECT UserID FROM Users WHERE username = '" + username + "'";
+        int userID = 0;
+        
+        ResultSet rs = this.queryDB(query);
+        
+        try 
+        {
+            if (rs.next())
+            {
+                userID = rs.getInt("UserID");
+                System.out.println("UserID for username '" + username + "': " + userID);
+            } 
+            else 
+            {
+                System.out.println("No UserID found for username '" + username + "'");
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return userID;
+    }
+    
+    public int getMovieID(String title)
+    {
+        String query = "SELECT MovieID FROM Movie WHERE Title = '" + title + "'";
+        int movieID = 0;
+        
+        ResultSet rs = this.queryDB(query);
+        
+        try 
+        {
+            if (rs.next())
+            {
+                movieID = rs.getInt("MovieID");
+                System.out.println("MovieID for movie '" + title +"': " + movieID);
+            }
+            else
+            {
+                System.out.println("No MovieID found for title '" + title + "'");
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return movieID;
     }
     
     public ResultSet queryDB(String sql) 

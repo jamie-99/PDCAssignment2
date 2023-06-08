@@ -85,10 +85,15 @@ public class Movies extends JFrame implements ActionListener
         ImageIcon johnWick = new ImageIcon("./resources/John Wick.png");
         
         this.starWarsIcon = new JLabel(starWars);
+        this.movies.get(0).setMovieLabel(this.starWarsIcon);
         this.minionsIcon = new JLabel(minions);
+        this.movies.get(1).setMovieLabel(this.minionsIcon);
         this.avengersIcon = new JLabel(avengers);
+        this.movies.get(2).setMovieLabel(this.avengersIcon);
         this.superMarioIcon = new JLabel(superMario);
+        this.movies.get(3).setMovieLabel(this.superMarioIcon);
         this.johnWickIcon = new JLabel(johnWick);
+        this.movies.get(4).setMovieLabel(this.johnWickIcon);
     }
     
     public void setLayoutManager()
@@ -112,7 +117,7 @@ public class Movies extends JFrame implements ActionListener
         this.avengersButton.setBounds(230, 310, 150, 30);
         this.avengersLabel.setBounds(230, 340, 250, 30);
         
-        this.superMarioLabel.setBounds(20, 440, 182, 154);
+        this.superMarioIcon.setBounds(20, 440, 182, 154);
         this.superMarioButton.setBounds(230, 440, 150, 30);
         this.superMarioLabel.setBounds(230, 470, 250, 30);
         
@@ -219,6 +224,21 @@ public class Movies extends JFrame implements ActionListener
     public ArrayList<Movie> getMovies() 
     {
         return this.movies;
+    }
+    
+    public Movie findMovie(String title)
+    {
+        Movie movie = null;
+        
+        for (Movie m : this.movies)
+        {
+            if (m.getTitle().equalsIgnoreCase(title))
+            {
+                movie = m;
+            }
+        }
+        
+        return movie;
     }
 
     public Movie getMovie(int index) 

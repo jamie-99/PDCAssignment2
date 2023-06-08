@@ -33,6 +33,10 @@ public class SignInController implements ActionListener
             
             if (data.getSignInFlag())
             {
+                this.signIn.user.setUsername(inputUsername);
+                this.signIn.user.setPassword(inputPassword);
+                this.signIn.user.setMembershipType(this.dbManager.getMembershipID(inputUsername));
+                
                 this.signIn.dispose();
                 
                 Movies movie = new Movies(this.signIn.fta, this.dbManager);

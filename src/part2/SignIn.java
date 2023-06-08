@@ -20,6 +20,7 @@ public class SignIn extends JFrame implements Observer
     private DBManager dbManager;
     
     public FilmTheatreApp fta;
+    public User user;
     
     private JPanel signInPanel;
     private JLabel userName;
@@ -36,6 +37,7 @@ public class SignIn extends JFrame implements Observer
         this.signInPanel = new JPanel();
         this.fta = fta;
         this.dbManager = dbManager;
+        this.user = new User();
         
         this.userName = new JLabel("Username");
         this.password = new JLabel("Password");
