@@ -39,7 +39,8 @@ public class SignInController implements ActionListener
         
         if(e.getSource() == this.signIn.getHomeButton())
         {
-            
+            this.signIn.dispose();
+            this.signIn.fta.setVisible(true);
         }
     } 
 }

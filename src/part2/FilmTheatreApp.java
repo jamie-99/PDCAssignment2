@@ -66,12 +66,6 @@ public class FilmTheatreApp extends JFrame implements ActionListener
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-    }
-
-    public static void main(String[] args) 
-    {
-        FilmTheatreApp fta = new FilmTheatreApp();
-
     }  
 
     @Override
@@ -81,7 +75,7 @@ public class FilmTheatreApp extends JFrame implements ActionListener
         {
             this.setVisible(false);
             
-            SignIn signInWindow = new SignIn();
+            SignIn signInWindow = new SignIn(this);
             User user = new User();
             SignInController sic = new SignInController(user, signInWindow);
             user.addObserver(signInWindow);
@@ -91,10 +85,16 @@ public class FilmTheatreApp extends JFrame implements ActionListener
         {
             this.setVisible(false);
             
-            SignUp signUpWindow = new SignUp();
+            SignUp signUpWindow = new SignUp(this);
             User user = new User();
             SignUpController suc = new SignUpController(user, signUpWindow);
             user.addObserver(signUpWindow);
         }
+    }
+    
+    public static void main(String[] args) 
+    {
+        FilmTheatreApp fta = new FilmTheatreApp();
+
     }
 }

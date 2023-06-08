@@ -7,6 +7,7 @@ import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /**
@@ -15,7 +16,11 @@ import javax.swing.JTextField;
  */
 public class SignIn extends JFrame implements Observer
 {
-    private Container container;
+    private Container container = new Container();
+    
+    public FilmTheatreApp fta;
+    
+    private JPanel signInPanel;
     private JLabel userName;
     private JLabel password;
     private JTextField userNameTextField;
@@ -25,8 +30,11 @@ public class SignIn extends JFrame implements Observer
     private JButton homeButton;
     private JLabel message;
     
-    public SignIn()
+    public SignIn(FilmTheatreApp fta)
     {
+        this.signInPanel = new JPanel();
+        this.fta = fta;
+        
         this.userName = new JLabel("Username");
         this.password = new JLabel("Password");
         this.userNameTextField = new JTextField();
@@ -36,17 +44,15 @@ public class SignIn extends JFrame implements Observer
         this.homeButton = new JButton("Home");
         this.message = new JLabel();
         
-        this.setLayoutManager();
         this.setLocationAndSize();
         this.addCompomentsToContainer();
-        this.frame();
-        
         this.add(this.container);
-    }
-    
-    public void setLayoutManager()
-    {
-        this.container.setLayout(null);
+        
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(370, 600);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setVisible(true);
     }
     
     public void setLocationAndSize()
@@ -57,7 +63,7 @@ public class SignIn extends JFrame implements Observer
         this.getPasswordTextField().setBounds(150, 220, 150, 30);
         this.getSignInButton().setBounds(50, 300, 100, 30);
         this.getResetButton().setBounds(200, 300, 100, 30);
-        this.getHomeButton().setBounds(30, 30, 100, 30);
+        this.getHomeButton().setBounds(20, 20, 80, 25);
     }
     
     public void addCompomentsToContainer()
@@ -77,16 +83,6 @@ public class SignIn extends JFrame implements Observer
         this.getResetButton().addActionListener(listener);
         this.getHomeButton().addActionListener(listener);
     } 
-    
-    public void frame()
-    {
-        this.setTitle("Sign in");
-        this.setVisible(true);
-        this.setSize(370, 600);
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-    }
 
     @Override
     public void update(Observable o, Object arg) 
@@ -132,6 +128,6 @@ public class SignIn extends JFrame implements Observer
     
     public static void main(String[] args) 
     {
-        SignIn signIn = new SignIn();
+        //SignIn signIn = new SignIn();
     }
 }

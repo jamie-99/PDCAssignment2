@@ -25,17 +25,23 @@ public class SignUpController implements ActionListener
     {
         if (e.getSource() == this.signUp.getSignUpButton())
         {
+            String userName = this.signUp.getUsernameInput().getText();
+            String password = this.signUp.getPasswordInput().getText();
+            this.user.checkCredential(userName, password);
+            
             
         }
         
         if (e.getSource() == this.signUp.getMembershipComboBox())
         {
-            //String membership = (String) this.signUp.getMembershipComboBox();
+            String membership = (String) this.signUp.getMembershipComboBox().getSelectedItem();
+            this.user.setMembership(membership);
         }
         
         if (e.getSource() == this.signUp.getHomeButton()) 
         {
-
+            this.signUp.dispose();
+            this.signUp.fta.setVisible(true);
         }
     }
     

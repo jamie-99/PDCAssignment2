@@ -18,6 +18,8 @@ public class SignUp extends JFrame implements Observer
 {
     private JPanel signUpPanel;
     
+    public FilmTheatreApp fta;
+    
     private JLabel firstName;
     private JLabel lastName;
     private JLabel username;
@@ -35,9 +37,10 @@ public class SignUp extends JFrame implements Observer
     
     private JLabel message;
     
-    public SignUp()
+    public SignUp(FilmTheatreApp fta)
     {
         this.signUpPanel = new JPanel();
+        this.fta = fta;
         
         this.firstName = new JLabel("First name");
         this.lastName = new JLabel("Last name");
@@ -56,16 +59,17 @@ public class SignUp extends JFrame implements Observer
         this.signUpButton = new JButton("Sign Up");
         this.homeButton = new JButton("Home");
         
-        this.message = new JLabel();
+        this.message = new JLabel("Please fill out the details.");
+        
+        this.signUpPanel.setLayout(null);
+        
+        this.setLocationAndSize();
+        this.addComponents();
+        this.add(this.signUpPanel);
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(370, 600);
         this.setLocationRelativeTo(null);
-        
-        this.setLocationAndSize();
-        this.addComponents();
-        
-        this.add(this.signUpPanel);
         this.setVisible(true);
     }
     
@@ -83,8 +87,9 @@ public class SignUp extends JFrame implements Observer
         this.getPasswordInput().setBounds(150, 300, 150, 30);
         this.getMembershipComboBox().setBounds(150, 350, 150, 30);
         
-        this.getSignUpButton().setBounds(250, 420, 100, 30);
-        this.getHomeButton().setBounds(30, 30, 100, 30);
+        this.message.setBounds(100, 70, 150, 30);
+        this.getSignUpButton().setBounds(130, 420, 100, 30);
+        this.getHomeButton().setBounds(20, 20, 80, 25);
     }
     
     public void addComponents()
@@ -101,6 +106,7 @@ public class SignUp extends JFrame implements Observer
         this.signUpPanel.add(this.getPasswordInput());
         this.signUpPanel.add(this.getMembershipComboBox());
         
+        this.signUpPanel.add(this.message);
         this.signUpPanel.add(this.getSignUpButton());
         this.signUpPanel.add(this.getHomeButton());
     }
@@ -163,5 +169,10 @@ public class SignUp extends JFrame implements Observer
     public JButton getHomeButton() 
     {
         return homeButton;
+    }
+    
+    public static void main(String[] args) 
+    {
+        //SignUp signUp = new SignUp();
     }
 }

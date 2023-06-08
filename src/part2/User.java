@@ -182,6 +182,17 @@ public class User extends Observable
         }
     }
     
+    public void setMembership(String membership)
+    {
+        for (Membership m : Membership.values())
+        {
+            if (membership.equalsIgnoreCase(m.getMembership()))
+            {
+                this.membership = m;
+            }
+        }
+    }
+    
     public void closeConnection() 
     {
         this.dbManager.closeConnections();
