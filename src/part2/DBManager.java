@@ -150,6 +150,41 @@ public class DBManager extends Observable
         return movies;
     }
     
+    public String[] getMovieSchedule(String title) 
+    {
+        String[] schedule = new String[3];
+        
+        String query = "SELECT c1.Time AS Cinema1_Time, c2.Time AS Cinema2_Time, c3.Time AS Cinema3_Time\n"
+                + "FROM Movie m\n"
+                + "LEFT JOIN Cinema1 c1 ON m.MovieID = c1.MovieID\n"
+                + "LEFT JOIN Cinema2 c2 ON m.MovieID = c2.MovieID\n"
+                + "LEFT JOIN Cinema3 c3 ON m.MovieID = c3.MovieID\n"
+                + "WHERE m.Title = 'Star Wars'\n"
+                + "  AND (c1.MovieID IS NOT NULL OR c2.MovieID IS NOT NULL OR c3.MovieID IS NOT NULL)";
+        
+        try 
+        {
+            Statement statement = this.conn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            
+            while (rs.next())
+            {
+                int index = 0;
+                
+                schedule[index] = rs.getString(index + 1);
+                
+                index++;
+            }
+            
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return schedule;
+    }
+    
     public ResultSet queryDB(String sql) 
     {
         Connection connection = this.conn;

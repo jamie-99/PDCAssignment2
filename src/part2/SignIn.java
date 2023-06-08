@@ -47,6 +47,7 @@ public class SignIn extends JFrame implements Observer
         this.homeButton = new JButton("Home");
         this.message = new JLabel();
         
+        this.setTitle("Sign In");
         this.setLocationAndSize();
         this.addCompomentsToContainer();
         this.add(this.container);

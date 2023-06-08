@@ -98,6 +98,5 @@ public class FilmTheatreApp extends JFrame implements ActionListener
     public static void main(String[] args) 
     {
         FilmTheatreApp fta = new FilmTheatreApp();
-
     }
 }

@@ -65,6 +65,7 @@ public class SignUp extends JFrame implements Observer
         
         this.signUpPanel.setLayout(null);
         
+        this.setTitle("Sign Up");
         this.setLocationAndSize();
         this.addComponents();
         this.add(this.signUpPanel);
@@ -134,7 +135,9 @@ public class SignUp extends JFrame implements Observer
         }
         else if (data.getHomeFlag())
         {
+            this.dispose();
             
+            this.fta.setVisible(true);
         }
     }
 

@@ -39,7 +39,7 @@ public class BookSeat extends JFrame implements ActionListener
         
         this.add(this.container);
         
-        this.setSize(710, 900);
+        this.setSize(710, 760);
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -47,7 +47,7 @@ public class BookSeat extends JFrame implements ActionListener
     public void setLocationAndSize()
     {
         this.message.setBounds(270, 20, 200, 30);
-        this.confirmButton.setBounds(260, 770, 150, 50);
+        this.confirmButton.setBounds(260, 680, 150, 30);
         this.homeButton.setBounds(590, 20, 100, 30);
         this.previousButton.setBounds(10, 20, 100, 30);
     }
@@ -72,7 +72,7 @@ public class BookSeat extends JFrame implements ActionListener
             {
                 String seat = alphabet.toString() + (j + 1);
                 this.seatButtons[i][j] = new JButton(seat);
-                this.seatButtons[i][j].setSize(50, 50);
+                this.seatButtons[i][j].setSize(5, 5);
                 this.seatButtons[i][j].addActionListener(this);
                 seatsPanel.add(this.seatButtons[i][j]);
             }
@@ -80,7 +80,7 @@ public class BookSeat extends JFrame implements ActionListener
             alphabet++;
         }
         
-        seatsPanel.setBounds(45, 100, 600, 600);
+        seatsPanel.setBounds(70, 90, 560, 560);
         this.container.add(seatsPanel);
     }
     

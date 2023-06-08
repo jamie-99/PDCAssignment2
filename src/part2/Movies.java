@@ -26,6 +26,7 @@ public class Movies extends JFrame implements ActionListener
     private int numberOfMovies;
     
     DBManager dbManager;
+    FilmTheatreApp fta;
     
     private Container container = new Container();
     private JLabel message= new JLabel("Please select a movie from the list.");
@@ -53,6 +54,7 @@ public class Movies extends JFrame implements ActionListener
     public Movies(FilmTheatreApp fta, DBManager dbManager) 
     {
         this.dbManager = dbManager;
+        this.fta = fta;
         
         this.movies = new ArrayList();
         this.movies = dbManager.retrieveMoviesFromDB();
@@ -74,6 +76,7 @@ public class Movies extends JFrame implements ActionListener
         this.setLayoutManager();
         this.setLocationAndSizes();
         this.addCompomentsToContainer();
+        this.addActionEvent();
 
         this.frame();
         
@@ -158,51 +161,65 @@ public class Movies extends JFrame implements ActionListener
     {
         this.setTitle("Fiml Theatre App");
         this.setVisible(true);
-        this.setSize(600, 900);
+        this.setSize(600, 750);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
     }
     
-    public void addActionEvent(ActionListener listener)
+    public void addActionEvent()
     {
-        this.starWarsButton.addActionListener(listener);
-        this.minionsButton.addActionListener(listener);
-        this.avengersButton.addActionListener(listener);
-        this.superMarioButton.addActionListener(listener);
-        this.johnWickButton.addActionListener(listener);
+        this.starWarsButton.addActionListener(this);
+        this.minionsButton.addActionListener(this);
+        this.avengersButton.addActionListener(this);
+        this.superMarioButton.addActionListener(this);
+        this.johnWickButton.addActionListener(this);
+        this.signOut.addActionListener(this);
     }
     
-    public void actionPerfomed(ActionEvent e)
+    @Override
+    public void actionPerformed(ActionEvent e) 
     {
         if (e.getSource() == this.starWarsButton)
         {
+            this.setVisible(false);
             
+            TimeAndPeople cinema = new TimeAndPeople(this.fta, this.dbManager, this, this.starWarsButton.getText());
         }
         
         if (e.getSource() == this.minionsButton)
         {
+            this.setVisible(false);
             
+            TimeAndPeople cinema = new TimeAndPeople(this.fta, this.dbManager, this, this.minionsButton.getText());
         }
         
         if (e.getSource() == this.avengersButton)
         {
+            this.setVisible(false);
             
+            TimeAndPeople cinema = new TimeAndPeople(this.fta, this.dbManager, this, this.avengersButton.getText());
         }
         
         if (e.getSource() == this.superMarioButton)
         {
+            this.setVisible(false);
             
+            TimeAndPeople cinema = new TimeAndPeople(this.fta, this.dbManager, this, this.superMarioButton.getText());
         }
         
         if (e.getSource() == this.johnWickButton)
         {
+            this.setVisible(false);
             
+            TimeAndPeople cinema = new TimeAndPeople(this.fta, this.dbManager, this, this.johnWickButton.getText());
         }
         
         if (e.getSource() == this.signOut)
         {
+            this.dispose();
             
+            this.fta.setVisible(true);
         }
     }
 
@@ -220,15 +237,11 @@ public class Movies extends JFrame implements ActionListener
     {
         return this.movies.size();
     }
-
-    @Override
-    public void actionPerformed(ActionEvent e) 
-    {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
     
 //    public static void main(String[] args) 
 //    {
 //        Movies movies = new Movies();
 //    }
+
+
 }
