@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -18,14 +19,29 @@ public class BookSeat extends JFrame implements ActionListener
 {
     private Container container = new Container();
     
+    public FilmTheatreApp fta;
+    public DBManager dbManager;
+    public TimeAndPeople tap;
+    
+    private String time;
+    private int seatsToBook;
+    private int seatsBooked;
+    
     private JLabel message = new JLabel("Please select your seats.");
     private JButton[][] seatButtons = new JButton[10][10];
     private JButton confirmButton = new JButton("Confirm seats");
-    private JButton homeButton = new JButton("Home");
+    private JButton signOut = new JButton("Sign out");
     private JButton previousButton = new JButton("Previous");
     
-    public BookSeat()
+    public BookSeat(FilmTheatreApp fta, DBManager dbManager, TimeAndPeople tap, String time, int numberOfPeople)
     {
+        this.fta = fta;
+        this.dbManager = dbManager;
+        this.tap = tap;
+        this.time = time;
+        this.seatsToBook = numberOfPeople;
+        this.seatsBooked = 0;
+        
         this.setTitle("Film Theatre App");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
@@ -48,7 +64,7 @@ public class BookSeat extends JFrame implements ActionListener
     {
         this.message.setBounds(270, 20, 200, 30);
         this.confirmButton.setBounds(260, 680, 150, 30);
-        this.homeButton.setBounds(590, 20, 100, 30);
+        this.signOut.setBounds(590, 20, 100, 30);
         this.previousButton.setBounds(10, 20, 100, 30);
     }
     
@@ -56,7 +72,7 @@ public class BookSeat extends JFrame implements ActionListener
     {
         this.container.add(this.message);
         this.container.add(this.confirmButton);
-        this.container.add(this.homeButton);
+        this.container.add(this.signOut);
         this.container.add(this.previousButton);
     }
     
@@ -87,38 +103,54 @@ public class BookSeat extends JFrame implements ActionListener
     public void addActionEvent()
     {
         this.confirmButton.addActionListener(this);
-        this.homeButton.addActionListener(this);
+        this.signOut.addActionListener(this);
+        this.previousButton.addActionListener(this);
     }
     
     @Override
     public void actionPerformed(ActionEvent e) 
     {
+        if (e.getSource() == this.previousButton)
+        {
+            this.dispose();
+            this.tap.setVisible(true);
+        }
+        
+        if (e.getSource() == this.signOut)
+        {
+            this.dispose();
+            this.tap.dispose();
+            this.fta.setVisible(true);
+        }
+        
         if (e.getSource() == this.confirmButton) 
         {
-            for (int i = 0; i < this.seatButtons.length; i++) 
-            {
-                for (int j = 0; j < this.seatButtons.length; i++) 
-                {
-                    if (seatButtons[i][j].isEnabled()) 
-                    {
-                        seatButtons[i][j].setEnabled(false);
-                        break;
-                    }
-                }
-            }
+            
         } 
         else 
         {
             JButton seatButton = (JButton) e.getSource();
             if (seatButton.isEnabled()) 
             {
-                seatButton.setEnabled(false);
+                if (seatsBooked == seatsToBook) 
+                {
+                    JOptionPane.showMessageDialog(this, "You have already booked the maximum number of seats.", "Seat Booking", JOptionPane.INFORMATION_MESSAGE);
+                } 
+                else 
+                {
+                    seatButton.setEnabled(false);
+                    seatsBooked++;
+                    
+                    if (seatsBooked == seatsToBook) 
+                    {
+                        JOptionPane.showMessageDialog(this, "You have successfully booked " + seatsBooked + " seat(s).", "Seat Booking", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
+            } 
+            else 
+            {
+                JOptionPane.showMessageDialog(this, "Seat already booked.", "Seat Booking", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-    }
-    
-    public static void main(String[] args) 
-    {
-        BookSeat bs = new BookSeat();
     }
 }

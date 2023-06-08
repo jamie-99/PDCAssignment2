@@ -85,7 +85,7 @@ public class DBManager extends Observable
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return data;
@@ -114,7 +114,7 @@ public class DBManager extends Observable
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return data;
@@ -144,7 +144,7 @@ public class DBManager extends Observable
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(Movies.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBManager.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return movies;
@@ -154,13 +154,12 @@ public class DBManager extends Observable
     {
         String[] schedule = new String[3];
         
-        String query = "SELECT c1.Time AS Cinema1_Time, c2.Time AS Cinema2_Time, c3.Time AS Cinema3_Time\n"
-                + "FROM Movie m\n"
-                + "LEFT JOIN Cinema1 c1 ON m.MovieID = c1.MovieID\n"
-                + "LEFT JOIN Cinema2 c2 ON m.MovieID = c2.MovieID\n"
-                + "LEFT JOIN Cinema3 c3 ON m.MovieID = c3.MovieID\n"
-                + "WHERE m.Title = 'Star Wars'\n"
-                + "  AND (c1.MovieID IS NOT NULL OR c2.MovieID IS NOT NULL OR c3.MovieID IS NOT NULL)";
+        String query = "SELECT c1.Time AS Cinema1_Time, c2.Time AS Cinema2_Time, c3.Time AS Cinema3_Time " +
+                    "FROM Movie m " +
+                    "LEFT JOIN Cinema1 c1 ON m.MovieID = c1.MovieID " +
+                    "LEFT JOIN Cinema2 c2 ON m.MovieID = c2.MovieID " +
+                    "LEFT JOIN Cinema3 c3 ON m.MovieID = c3.MovieID " +
+                    "WHERE m.Title = '" + title + "'";
         
         try 
         {
@@ -171,9 +170,27 @@ public class DBManager extends Observable
             {
                 int index = 0;
                 
-                schedule[index] = rs.getString(index + 1);
+                String cinema1Time = rs.getString("Cinema1_Time");
                 
-                index++;
+                if (cinema1Time != null)
+                {
+                    schedule[index] = cinema1Time;
+                    index++;
+                }
+                
+                String cinema2Time = rs.getString("Cinema2_Time");
+                
+                if (cinema2Time != null)
+                {
+                    schedule[index] = cinema2Time;
+                    index++;
+                }
+                
+                String cinema3Time = rs.getString("Cinema3_Time");
+                if (cinema3Time != null)
+                {
+                    schedule[index] = cinema3Time;
+                }
             }
             
         } 

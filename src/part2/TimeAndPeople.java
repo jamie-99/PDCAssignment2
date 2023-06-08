@@ -3,9 +3,7 @@ package part2;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -63,14 +61,6 @@ public class TimeAndPeople extends JFrame implements ActionListener
     public String[] moveArray(String[] timeSlot)
     {
         ArrayList tempList = new ArrayList();
-        
-        for (int i = 0; i < timeSlot.length; i++)
-        {
-            if (timeSlot[i] == null && (i + 1) < timeSlot.length)
-            {
-                timeSlot[i] = timeSlot[i + 1];
-            }
-        }
         
         for (int i = 0; i < timeSlot.length; i++)
         {
@@ -144,7 +134,11 @@ public class TimeAndPeople extends JFrame implements ActionListener
         
         if (e.getSource() == this.confirmButton)
         {
+            String time = (String) this.timeComboBox.getSelectedItem();
+            int people = Integer.parseInt(this.numberOfPeople.getSelectedItem().toString());
             
+            this.setVisible(false);
+            BookSeat bookSeat = new BookSeat(this.fta, this.dbManager, this, time, people);
         }
     }
 }
