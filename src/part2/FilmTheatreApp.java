@@ -14,12 +14,17 @@ import javax.swing.JLabel;
 public class FilmTheatreApp extends JFrame implements ActionListener
 {
     private Container container;
+    private JLabel message;
     private JLabel welcomeMessage;
     private JButton signIn;
     private JButton signUp;
     
+    private DBManager dbManager;
+    
     public FilmTheatreApp() 
     {
+        this.dbManager = new DBManager();
+        
         this.container = getContentPane();
         this.welcomeMessage = new JLabel("Welcome to FilmTheatre App!");
         this.signIn = new JButton("Sign in");
@@ -75,20 +80,18 @@ public class FilmTheatreApp extends JFrame implements ActionListener
         {
             this.setVisible(false);
             
-            SignIn signInWindow = new SignIn(this);
-            User user = new User();
-            SignInController sic = new SignInController(user, signInWindow);
-            user.addObserver(signInWindow);
+            SignIn signInWindow = new SignIn(this, this.dbManager);
+            SignInController sic = new SignInController(this.dbManager, signInWindow);
+            this.dbManager.addObserver(signInWindow);
         }
         
         if (e.getSource() == signUp)
         {
             this.setVisible(false);
             
-            SignUp signUpWindow = new SignUp(this);
-            User user = new User();
-            SignUpController suc = new SignUpController(user, signUpWindow);
-            user.addObserver(signUpWindow);
+            SignUp signUpWindow = new SignUp(this, this.dbManager);
+            SignUpController suc = new SignUpController(dbManager, signUpWindow);
+            this.dbManager.addObserver(signUpWindow);
         }
     }
     

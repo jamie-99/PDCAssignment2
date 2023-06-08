@@ -16,7 +16,7 @@ public class FilmTheatre
     * The FilmTheatre class has a constructor that initializes the movies and cinemas fields.
     */
     public FilmTheatre() {
-        this.movies = new Movies();
+        //this.movies = new Movies();
         this.cinemas = new Cinema[3];
         this.addCinema();
     }

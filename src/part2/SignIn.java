@@ -17,8 +17,10 @@ import javax.swing.JTextField;
 public class SignIn extends JFrame implements Observer
 {
     private Container container = new Container();
+    private DBManager dbManager;
     
     public FilmTheatreApp fta;
+    public User user;
     
     private JPanel signInPanel;
     private JLabel userName;
@@ -30,10 +32,11 @@ public class SignIn extends JFrame implements Observer
     private JButton homeButton;
     private JLabel message;
     
-    public SignIn(FilmTheatreApp fta)
+    public SignIn(FilmTheatreApp fta, DBManager dbManager)
     {
         this.signInPanel = new JPanel();
         this.fta = fta;
+        this.dbManager = dbManager;
         
         this.userName = new JLabel("Username");
         this.password = new JLabel("Password");
@@ -97,7 +100,9 @@ public class SignIn extends JFrame implements Observer
         }
         else if (data.getHomeFlag())
         {
+            this.dispose();
             
+            this.fta.setVisible(true);
         }
     }
     

@@ -21,31 +21,21 @@ public class User extends Observable
     
     private String userName;
     private String password;
-    private String name;
+    private String firstName;
+    private String lastName;
     private Membership membership;
     private int pointBalance;    
-    
-    public User(String name, Membership membership)
-    {
-        this.name = name;
-        this.membership = membership;
-        this.pointBalance = 0;
-        
-        this.dbManager = new DBManager();
-        this.conn = this.dbManager.getConnection();
-        
-        this.connectDataBase();
-    }
     
     public User()
     {
         this.dbManager = new DBManager();
         this.conn = this.dbManager.getConnection();
+        this.connectDataBase();
     }
     
     public void updatePointBalance(int inputPoints)
     {
-        this.pointBalance += inputPoints;
+        this.setPointBalance(this.pointBalance + inputPoints);
     }
     
 //    @Override
@@ -53,11 +43,6 @@ public class User extends Observable
 //    {
 //        return this.name + "(" + this.membership.getMembership() + ")";
 //    }
-
-    public String getName() 
-    {
-        return name;
-    }
 
     public Membership getMembership() 
     {
@@ -89,7 +74,33 @@ public class User extends Observable
         }
     }
     
-    public Data checkCredential(String userName, String password)
+    public void getUserDetail(String username)
+    {
+        String query = "";
+        
+        try 
+        {
+            ResultSet rs = this.statement.executeQuery(query);
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void addToTabel(String query)
+    {
+        try 
+        {
+            this.statement.execute(query);
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public Data checkCredential(String userName, String password, User user)
     {
         Data data = new Data();
         
@@ -107,6 +118,9 @@ public class User extends Observable
                 {
                     data.setSignInFlag(true);
                     System.out.println("Sign in successful");
+                    
+                    String dbFirstName = rs.getString("FIRSTNAME");
+                    String dbLastName = rs.getString("LASTNAME");
                 }
             }
             else
@@ -188,7 +202,7 @@ public class User extends Observable
         {
             if (membership.equalsIgnoreCase(m.getMembership()))
             {
-                this.membership = m;
+                this.setMembership(m);
             }
         }
     }
@@ -201,5 +215,39 @@ public class User extends Observable
     public static void main(String[] args) 
     {
         //User user = new User();
+    }
+
+    public void setUserName(String userName) 
+    {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) 
+    {
+        this.password = password;
+    }
+
+    public void setMembership(Membership membership) 
+    {
+        this.membership = membership;
+    }
+
+    public void setPointBalance(int pointBalance) 
+    {
+        this.pointBalance = pointBalance;
+    }
+
+    /**
+     * @param fistName the fistName to set
+     */
+    public void setFistName(String fistName) {
+        this.firstName = fistName;
+    }
+
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }

@@ -43,7 +43,7 @@ public class Cinema
         this.cinemaNumber = cinemaNumber;
         this.capacity = capacity;
 
-        this.movies = new Movies();
+        //this.movies = new Movies();
 
         this.timeSlots = new LinkedList();
 

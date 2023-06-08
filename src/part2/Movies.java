@@ -1,7 +1,6 @@
 package part2;
 
 import java.awt.Container;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -23,12 +22,10 @@ import javax.swing.JLabel;
  */
 public class Movies extends JFrame implements ActionListener
 {
-    private final DBManager dbManager;
-    private final Connection conn;
-    private Statement statement;
-    
     private ArrayList<Movie> movies;
     private int numberOfMovies;
+    
+    DBManager dbManager;
     
     private Container container = new Container();
     private JLabel message= new JLabel("Please select a movie from the list.");
@@ -53,14 +50,12 @@ public class Movies extends JFrame implements ActionListener
     
     private JButton signOut = new JButton("Sign out");
     
-    public Movies() 
+    public Movies(FilmTheatreApp fta, DBManager dbManager) 
     {
-        this.dbManager = new DBManager();
-        this.conn = this.dbManager.getConnection();
-        this.connectDataBase();
-
+        this.dbManager = dbManager;
+        
         this.movies = new ArrayList();
-        this.retrieveMoviesFromDB();
+        this.movies = dbManager.retrieveMoviesFromDB();
         
         this.starWarsButton = new JButton(this.movies.get(0).getTitle());
         this.minionsButton = new JButton(this.movies.get(1).getTitle());
@@ -83,54 +78,6 @@ public class Movies extends JFrame implements ActionListener
         this.frame();
         
         this.add(this.container);
-    }
-    
-    public void connectDataBase()
-    {
-        try 
-        {
-            this.statement = this.conn.createStatement();
-
-            this.checkTableExists("Movie");
-            
-            this.statement.addBatch("CREATE TABLE Movie (MovieID int NOT NULL, Title varchar(50), MovieType varchar(10), Duration int)");
-            this.statement.addBatch("INSERT INTO Movie VALUES (1, 'Star Wars', '3D', 130), \n"
-                    + "(2, 'Minions', 'Normal', 89), \n"
-                    + "(3, 'Avengers', 'IMAX', 190), \n"
-                    + "(4, 'Super Mario', '4D', 95), \n"
-                    + "(5, 'John Wick', 'IMAX', 160)");
-            this.statement.addBatch("ALTER TABLE Movie ADD PRIMARY KEY (MovieID)");
-            this.statement.executeBatch();
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void retrieveMoviesFromDB()
-    {
-        String query = "SELECT Title, MovieType, Duration FROM Movie";
-        
-        try 
-        {
-            ResultSet rs = this.statement.executeQuery(query);
-            
-            while (rs.next())
-            {
-                String title = rs.getString("Title");
-                int duration = Integer.parseInt(rs.getString("Duration"));
-                String movieType = rs.getString("MovieType");
-                
-                Movie movie = new Movie(title, duration);
-                movie.setMovieType(movieType);
-                this.movies.add(movie);
-            }
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(Movies.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     public void addImageIcon()
@@ -258,42 +205,6 @@ public class Movies extends JFrame implements ActionListener
             
         }
     }
-    
-    public void checkTableExists(String name) 
-    {
-        DatabaseMetaData dbmd;
-
-        try 
-        {
-            dbmd = this.conn.getMetaData();
-
-            String[] types = {"TABLE"};
-            this.statement = this.conn.createStatement();
-            ResultSet rs = dbmd.getTables(null, null, null, types);
-
-            while (rs.next()) 
-            {
-                String tableName = rs.getString("TABLE_NAME");
-                System.out.println(tableName);
-                
-                if (tableName.equalsIgnoreCase(name)) 
-                {
-                    this.statement.executeUpdate("Drop table " + name);
-                    System.out.println("Table " + name + " already exists. " + name + " has been deleted.");
-                    break;
-                }
-            }
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(Movie.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public void closeConnection() 
-    {
-        this.dbManager.closeConnections();
-    }
 
     public ArrayList<Movie> getMovies() 
     {
@@ -316,8 +227,8 @@ public class Movies extends JFrame implements ActionListener
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public static void main(String[] args) 
-    {
-        Movies movies = new Movies();
-    }
+//    public static void main(String[] args) 
+//    {
+//        Movies movies = new Movies();
+//    }
 }

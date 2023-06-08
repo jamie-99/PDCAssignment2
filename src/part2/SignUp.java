@@ -19,6 +19,7 @@ public class SignUp extends JFrame implements Observer
     private JPanel signUpPanel;
     
     public FilmTheatreApp fta;
+    public DBManager dbManager;
     
     private JLabel firstName;
     private JLabel lastName;
@@ -37,10 +38,11 @@ public class SignUp extends JFrame implements Observer
     
     private JLabel message;
     
-    public SignUp(FilmTheatreApp fta)
+    public SignUp(FilmTheatreApp fta, DBManager dbManager)
     {
         this.signUpPanel = new JPanel();
         this.fta = fta;
+        this.dbManager = dbManager;
         
         this.firstName = new JLabel("First name");
         this.lastName = new JLabel("Last name");

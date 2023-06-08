@@ -2,6 +2,7 @@ package part2;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -9,12 +10,12 @@ import java.awt.event.ActionListener;
  */
 public class SignInController implements ActionListener
 {
-    User user;
+    DBManager dbManager;
     SignIn signIn;
     
-    public SignInController(User user, SignIn signIn)
+    public SignInController(DBManager dbManager, SignIn signIn)
     {
-        this.user = user;
+        this.dbManager = dbManager;
         this.signIn = signIn;
         
         this.signIn.addActionListenr(this);
@@ -28,7 +29,18 @@ public class SignInController implements ActionListener
             String inputUsername = this.signIn.getUserNameTextField().getText();
             String inputPassword = this.signIn.getPasswordTextField().getText();
             
-            this.user.checkCredential(inputUsername, inputPassword);
+            Data data = this.dbManager.checkCredential(inputUsername, inputPassword);
+            
+            if (data.getSignInFlag())
+            {
+                this.signIn.dispose();
+                
+                Movies movie = new Movies(this.signIn.fta, this.dbManager);
+            }
+            else if (!data.getSignInFlag())
+            {
+                JOptionPane.showMessageDialog(this.signIn, "Invalid Username or Password");
+            }
         } 
         
         if (e.getSource() == this.signIn.getResetButton())
