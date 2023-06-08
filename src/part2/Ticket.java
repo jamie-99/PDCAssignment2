@@ -1,9 +1,9 @@
 package part2;
 
-/**
- *
- * @author jamie
- */
+/*
+The Ticket class represents an abstract ticket in the Film Theatre App.
+It provides common properties and abstract methods for different types of tickets.
+*/
 public abstract class Ticket 
 {
     protected double normalMoviePrice = 17.0;

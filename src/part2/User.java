@@ -1,9 +1,8 @@
 package part2;
 
-/**
- *
- * @author jamie
- */
+/*
+The User class stores username, password, firstName, lastName, and membershipType (in int value).
+*/
 public class User 
 {
     private String username;

@@ -12,10 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/**
- *
- * @author jamie
- */
+/*
+BookSeat represents a GUI window for booking seats in a film theater application. Here's a breakdown of the class and its components.
+The class extends the JFrame class and implements the ActionListener interface, which allows it to handle user actions such as button clicks.
+*/
 public class BookSeat extends JFrame implements ActionListener
 {
     private Container container = new Container();
@@ -35,6 +35,9 @@ public class BookSeat extends JFrame implements ActionListener
     private JButton signOut = new JButton("Sign out");
     private JButton previousButton = new JButton("Previous");
     
+    /*
+    The constructor initializes the instance variables and sets up the frame's layout and components. It also sets the size and visibility of the frame.
+    */
     public BookSeat(FilmTheatreApp fta, DBManager dbManager, TimeAndPeople tap, String time, int numberOfPeople)
     {
         this.fta = fta;
@@ -61,7 +64,7 @@ public class BookSeat extends JFrame implements ActionListener
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    
+
     public void setLocationAndSize()
     {
         this.message.setBounds(270, 20, 200, 30);
@@ -69,7 +72,7 @@ public class BookSeat extends JFrame implements ActionListener
         this.signOut.setBounds(590, 20, 100, 30);
         this.previousButton.setBounds(10, 20, 100, 30);
     }
-    
+
     public void addComponents()
     {
         this.container.add(this.message);
@@ -78,6 +81,10 @@ public class BookSeat extends JFrame implements ActionListener
         this.container.add(this.previousButton);
     }
     
+    /*
+    The addSeatButtons method creates a grid of seat buttons (JButtons) using nested loops. 
+    Each button represents a seat in the theater. The buttons are added to a panel, which is then added to the container.
+    */
     public void addSeatButtons()
     {
         JPanel seatsPanel = new JPanel(new GridLayout(10,10));
@@ -109,6 +116,13 @@ public class BookSeat extends JFrame implements ActionListener
         this.previousButton.addActionListener(this);
     }
     
+    /*
+    The actionPerformed method is invoked when a button is clicked. It handles the corresponding actions based on the button clicked. 
+    If the previous button is clicked, it closes the current frame and shows the previous frame. If the sign out button is clicked, 
+    it closes all related frames and shows the main application frame. If the confirm button is clicked, it hides the current frame and 
+    creates an instance of the PrintTicket class. If any seat button is clicked, it checks if the seat is available, books it if available, 
+    and provides appropriate messages.
+    */
     @Override
     public void actionPerformed(ActionEvent e) 
     {

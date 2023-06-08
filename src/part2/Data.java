@@ -1,9 +1,9 @@
 package part2;
 
-/**
- *
- * @author jamie
- */
+/*
+Data class serves as a simple container for storing boolean flags that represent different states or conditions within an application. 
+It provides getter and setter methods to access and modify these flags.
+*/
 public class Data 
 {
     private boolean signInFlag;

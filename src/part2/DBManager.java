@@ -10,9 +10,8 @@ import java.util.Observable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author jamie
+/*
+ DBManager is responsible for managing the connection to a database and executing SQL queries.
  */
 public class DBManager extends Observable
 {
@@ -27,6 +26,9 @@ public class DBManager extends Observable
         this.establishConnection();
     }
     
+    /*
+    The establishConnection method checks if the connection is null and establishes a new connection using the provided URL, username, and password.
+    */
     public void establishConnection() 
     {
         if (this.conn == null) 
@@ -57,6 +59,10 @@ public class DBManager extends Observable
         }
     }
     
+    /*
+    The checkCredential method checks the user's credentials by executing an SQL query to retrieve the username and password from the database. 
+    If the credentials match, it sets the signInFlag of a Data object to true.
+    */
     public Data checkCredential(String userName, String password)
     {
         Data data = new Data();
@@ -90,6 +96,10 @@ public class DBManager extends Observable
         return data;
     }
     
+    /*
+    The retrieveMoviesFromDB method retrieves a list of movies from the database by executing an SQL query. 
+    It creates Movie objects and adds them to an ArrayList<Movie>.
+    */
     public ArrayList<Movie> retrieveMoviesFromDB()
     {
         ArrayList<Movie> movies = new ArrayList<>();
@@ -119,6 +129,10 @@ public class DBManager extends Observable
         return movies;
     }
     
+    /*
+    The getMovieSchedule method retrieves the schedule for a specific movie by executing an SQL query. 
+    It returns an array of three strings representing the movie times for different cinema halls.
+    */
     public String[] getMovieSchedule(String title) 
     {
         String[] schedule = new String[3];
@@ -170,6 +184,9 @@ public class DBManager extends Observable
         return schedule;
     }
     
+    /*
+    The getDiscountRate method retrieves the discount rate for a given membership ID by executing an SQL query.
+    */
     public double getDiscountRate(int membershipID)
     {
         double discountRate = 0.0;
@@ -193,6 +210,9 @@ public class DBManager extends Observable
         return discountRate;
     }
     
+    /*
+    The getMembershipID method retrieves the membership ID for a given username by executing an SQL query.
+    */
     public int getMembershipID(String username)
     {
         int membershipID = 0;
@@ -221,6 +241,9 @@ public class DBManager extends Observable
         return membershipID;
     }
     
+    /*
+    The getUserID method retrieves the user ID for a given username by executing an SQL query.
+    */
     public int getUserID(String username)
     {
         String query = "SELECT UserID FROM Users WHERE username = '" + username + "'";
@@ -248,6 +271,9 @@ public class DBManager extends Observable
         return userID;
     }
     
+    /*
+    The getMovieID method retrieves the movie ID for a given movie title by executing an SQL query.
+    */
     public int getMovieID(String title)
     {
         String query = "SELECT MovieID FROM Movie WHERE Title = '" + title + "'";
@@ -275,6 +301,9 @@ public class DBManager extends Observable
         return movieID;
     }
     
+    /*
+    The queryDB method executes an SQL query and returns the result as a ResultSet object.
+    */
     public ResultSet queryDB(String sql) 
     {
         Connection connection = this.conn;
@@ -294,6 +323,9 @@ public class DBManager extends Observable
         return resultSet;
     }
     
+    /*
+    The updateDB method executes an SQL update statement, such as INSERT, UPDATE, or DELETE.
+    */
     public void updateDB(String sql) 
     {
         Connection connection = this.conn;
@@ -309,10 +341,5 @@ public class DBManager extends Observable
         {
             System.out.println(ex.getMessage());
         }
-    }
-    
-    public Connection getConnection()
-    {
-        return this.conn;
     }
 }

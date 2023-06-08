@@ -10,10 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author jamie
- */
+/*
+This class acts as View in MVC.
+*/
 public class SignIn extends JFrame implements Observer
 {
     private Container container = new Container();
@@ -32,6 +31,10 @@ public class SignIn extends JFrame implements Observer
     private JButton homeButton;
     private JLabel message;
     
+    /*
+    This is the constructor of the class. It initializes a SignIn object with the provided fta and dbManager. 
+    It sets up the GUI components, including labels, text fields, buttons, and their positions.
+    */
     public SignIn(FilmTheatreApp fta, DBManager dbManager)
     {
         this.signInPanel = new JPanel();
@@ -89,6 +92,12 @@ public class SignIn extends JFrame implements Observer
         this.getHomeButton().addActionListener(listener);
     } 
 
+    /*
+    This method is called when the observed object notifies its observers. 
+    It updates the SignIn object based on the received arg object. If the sign-in flag is false, it clears the username and 
+    password text fields and displays a message indicating incorrect credentials. If the home flag is true, it disposes of the 
+    sign-in window and makes the fta (FilmTheatreApp) window visible.
+    */
     @Override
     public void update(Observable o, Object arg) 
     {
@@ -131,10 +140,5 @@ public class SignIn extends JFrame implements Observer
     public JTextField getPasswordTextField() 
     {
         return passwordTextField;
-    }
-    
-    public static void main(String[] args) 
-    {
-        //SignIn signIn = new SignIn();
     }
 }

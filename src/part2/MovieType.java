@@ -1,9 +1,8 @@
 package part2;
 
-/**
- *
- * @author jamie
- */
+/*
+MovieType Enum store representation of 4 different movie types.
+*/
 public enum MovieType 
 {
     _3D("3D"), _4D("4D"), IMAX("IMAX"), NORMAL("Normal");

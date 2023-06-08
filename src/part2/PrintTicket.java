@@ -7,10 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-/**
- *
- * @author jamie
- */
 public class PrintTicket extends JFrame implements ActionListener
 {
     public FilmTheatreApp fta;
@@ -29,6 +25,10 @@ public class PrintTicket extends JFrame implements ActionListener
     private JLabel totalPriceLabel;
     private JButton finishButton = new JButton("Finish");
     
+    /*
+    This is the constructor of the class. It initializes a PrintTicket object with the provided fta, dbManager, and bookSeat. 
+    It sets up the GUI components, including labels, buttons, and their positions, and initializes the movie, title, time, booked seats, and total price.
+    */
     public PrintTicket(FilmTheatreApp fta, DBManager dbManager, BookSeat bookSeat)
     {
         this.fta = fta;
@@ -59,6 +59,9 @@ public class PrintTicket extends JFrame implements ActionListener
         this.setVisible(true);
     }
     
+    /*
+    This method retrieves the list of booked seats from the bookSeat object and returns them as a formatted string.
+    */
     public String storeBookedSeats()
     {
         String seats = "";
@@ -71,6 +74,10 @@ public class PrintTicket extends JFrame implements ActionListener
         return seats;
     }
     
+    /*
+    This method calculates the total price based on the membership type, number of people, movie type, and discount rate. It creates the appropriate 
+    ticket object (e.g., NonMemberTicket, RewardsMemberTicket, or RewardsVIPTicket) and sets the totalPrice variable.
+    */
     public void setTotalPrice()
     {
         int membershipType = this.fta.signInWindow.user.getMembershipType();
@@ -127,6 +134,9 @@ public class PrintTicket extends JFrame implements ActionListener
         this.finishButton.addActionListener(this);
     }
 
+    /*
+    This method handles the actionPerformed event. If the event source is the finish button, it calls the addTicketToDB method and exits the program.
+    */
     @Override
     public void actionPerformed(ActionEvent e) 
     {
@@ -137,6 +147,10 @@ public class PrintTicket extends JFrame implements ActionListener
         }
     }
     
+    /*
+    This method retrieves the necessary information (username, user ID, movie title, movie ID, time, and total price) and constructs an SQL query 
+    to insert the ticket data into the database using the dbManager object.
+    */
     public void addTicketToDB()
     {
         String username = this.fta.signInWindow.user.getUsername();

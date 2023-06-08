@@ -9,10 +9,9 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-/**
- *
- * @author jamie
- */
+/*
+The TimeAndPeople class represents the GUI for selecting movie time and number of people for booking.
+*/
 public class TimeAndPeople extends JFrame implements ActionListener
 {
     public FilmTheatreApp fta;
@@ -38,6 +37,7 @@ public class TimeAndPeople extends JFrame implements ActionListener
         this.movies = movies;
         this.title = title;
         
+        //Get movie schedule and populate time slots
         String[] temp = this.dbManager.getMovieSchedule(this.title);
         this.timeSlot = this.moveArray(temp);
         this.timeComboBox = new JComboBox(this.timeSlot);
@@ -58,6 +58,9 @@ public class TimeAndPeople extends JFrame implements ActionListener
         this.setVisible(true);
     }
     
+    /*
+    Move non-null elements of the array to a new array
+    */
     public String[] moveArray(String[] timeSlot)
     {
         ArrayList tempList = new ArrayList();
@@ -121,6 +124,7 @@ public class TimeAndPeople extends JFrame implements ActionListener
     {
         if (e.getSource() == this.signOutButton)
         {
+            //Sign out button clicked. The current window and the previous windows except for the home window get disposed.
             this.dispose();
             this.movies.dispose();
             this.fta.setVisible(true);
@@ -128,15 +132,18 @@ public class TimeAndPeople extends JFrame implements ActionListener
         
         if (e.getSource() == this.previousButton)
         {
+            //The current window gets disposed, and the window before gets displayed again.
             this.dispose();
             this.movies.setVisible(true);
         }
         
         if (e.getSource() == this.confirmButton)
         {
+            //Confirm button clicked, retrieve selected time and number of people
             String time = (String) this.timeComboBox.getSelectedItem();
             int people = Integer.parseInt(this.numberOfPeople.getSelectedItem().toString());
             
+            //Create a new BookSeat object and pass necessary parameters
             this.setVisible(false);
             BookSeat bookSeat = new BookSeat(this.fta, this.dbManager, this, time, people);
         }

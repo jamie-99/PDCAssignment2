@@ -3,16 +3,16 @@ package part2;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-/**
- *
- * @author jamie
- */
 public class RewardsMemberTicket extends Ticket
 {
     private int numberOfPeople;
     private MovieType movieType;
     private double discountRate;
     
+    /*
+    This is the constructor of the class. It initializes a RewardsMemberTicket object with the provided numberOfPeople, 
+    movieType, and discountRate. It calculates the total price of the ticket based on the movie type and sets it using the corresponding pricing method.
+    */
     public RewardsMemberTicket(int numberOfPeople, MovieType movieType, double discountRate)
     {
         this.numberOfPeople = numberOfPeople;

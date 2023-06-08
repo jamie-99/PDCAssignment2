@@ -1,9 +1,8 @@
 package part2;
 
-/**
- *
- * @author jamie
- */
+/*
+Membership Enum class stores the representation of 3 different membership status.
+*/
 public enum Membership 
 {
     NON_MEMBER("Non-Member"), REWARDS_MEMBER("Rewards Member"), REWARDS_VIP("Rewards VIP");

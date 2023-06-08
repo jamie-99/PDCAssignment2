@@ -2,7 +2,9 @@ package part2;
 
 import javax.swing.JLabel;
 
-
+/*
+Movie class stores title, duration, movieType, and movieLabel variables.
+*/
 public class Movie 
 {
     private String title;
@@ -42,6 +44,10 @@ public class Movie
         return this.movieType;
     }
     
+    /*
+    This method sets the movie type of the movie based on the provided string value. 
+    It iterates over the MovieType enum values and matches the case-insensitive movie type string to find the corresponding enum value.
+    */
     public void setMovieType(String movieType)
     {
         for (MovieType mt : MovieType.values())
